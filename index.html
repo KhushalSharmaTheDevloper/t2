@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Risk Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 90%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #0056b3;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #003d82;
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .visible {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media screen and (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            label {
+                font-size: 0.85rem;
+            }
+
+            input, select, button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h1>Diabetes Risk Checker</h1>
+
+        <div id="step1" class="visible">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="button" onclick="nextStep(1)">Continue</button>
+        </div>
+
+        <div id="step2" class="hidden">
+            <label for="age">Age (yrs):</label>
+            <input type="number" id="age" name="age" required>
+            <button type="button" onclick="nextStep(2)">Continue</button>
+        </div>
+
+        <div id="step3" class="hidden">
+            <label for="waist_circumference">Waist Circumference (cm):</label>
+            <input type="number" id="waist_circumference" name="waist_circumference" required>
+            <button type="button" onclick="nextStep(3)">Continue</button>
+        </div>
+
+        <div id="step4" class="hidden">
+            <label for="physical_activity">Physical Activity:</label>
+            <select id="physical_activity" name="physical_activity" required>
+                <option value="H">Regular + Strenuous Work</option>
+                <option value="M">Regular OR Strenuous Work</option>
+                <option value="N">No Exercise and Sedentary Work</option>
+            </select>
+            <button type="button" onclick="nextStep(4)">Continue</button>
+        </div>
+
+        <div id="step5" class="hidden">
+            <label for="family_history">Family History:</label>
+            <select id="family_history" name="family_history" required>
+                <option value="N">No Family History</option>
+                <option value="M">Either Parent</option>
+                <option value="H">Both Parents</option>
+            </select>
+            <button type="button" onclick="nextStep(5)">Continue</button>
+        </div>
+
+        <div id="step6" class="hidden">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+            <button type="button" onclick="nextStep(6)">Continue</button>
+        </div>
+
+        <div id="submitStep" class="hidden">
+            <button type="submit">Check Risk</button>
+        </div>
+    </form>
+
+    <script>
+        const steps = [
+            document.getElementById('step1'),
+            document.getElementById('step2'),
+            document.getElementById('step3'),
+            document.getElementById('step4'),
+            document.getElementById('step5'),
+            document.getElementById('step6'),
+            document.getElementById('submitStep'),
+        ];
+
+        function nextStep(currentIndex) {
+            if (currentIndex < steps.length) {
+                steps[currentIndex].classList.remove('hidden');
+                steps[currentIndex].classList.add('visible');
+                steps[currentIndex - 1].classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
